@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+  <bean class="de.neuland.jade4j.spring.view.JadeViewResolver" id="pageResolver">
+    <property name="configuration">
+      <bean class="de.neuland.jade4j.JadeConfiguration">
+        <property name="caching" value="false"/>
+        <property name="prettyPrint" value="true"/>
+        <property name="templateLoader">
+          <bean class="de.neuland.jade4j.spring.template.SpringTemplateLoader">
+            <property name="basePath" value="/page/"/>
+          </bean>
+        </property>
+      </bean>
+    </property>
+    <property name="renderExceptions" value="true"/>
+  </bean>
+  <bean class="de.neuland.jade4j.spring.view.JadeViewResolver" id="layoutResolver">
+    <property name="configuration">
+      <bean class="de.neuland.jade4j.JadeConfiguration">
+        <property name="caching" value="false"/>
+        <property name="prettyPrint" value="true"/>
+        <property name="templateLoader">
+          <bean class="de.neuland.jade4j.spring.template.SpringTemplateLoader">
+            <property name="basePath" value="/layout/"/>
+          </bean>
+        </property>
+      </bean>
+    </property>
+    <property name="renderExceptions" value="true"/>
+  </bean>
+
+  <context:annotation-config/>
+  <context:component-scan base-package="org.example.web"/>
+
+  <mvc:annotation-driven/>
+  <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+</beans>

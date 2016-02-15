@@ -1,0 +1,26 @@
+extends ../layout/default
+
+block page_body
+  .jumbotron
+    h1 Mule ESB with Spring MVC
+    p
+      a(href="https://www.mulesoft.org/what-mule-esb") Mule ESB
+      |  is a Java-based integration platform that provides an
+      a(href="https://en.wikipedia.org/wiki/Enterprise_service_bus") Enterprise Service Bus (ESB)
+      |  for integrating disparate systems.  Following the ESB pattern, Mule ESB provides a common
+      |  backbone for multiple software systems to exchange information with each other, regardless
+      |  of their technical composition or geographical proximity.
+  .panel.panel-primary
+    .panel-heading Users
+    table.table.table-bordered.table-condensed.table-hover.table-striped
+      thead
+        tr
+          th First name
+          th Last name
+          th Email
+      tbody
+        for person in persons
+          tr
+            td #{person.firstName}
+            td #{person.lastName}
+            td #{person.emailAddress}
