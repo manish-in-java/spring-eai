@@ -6,9 +6,11 @@ import org.hibernate.annotations.GenerationTime;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "person")
+@XmlRootElement(name = "person")
 public class Person
 {
   @Generated(GenerationTime.INSERT)

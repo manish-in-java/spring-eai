@@ -14,12 +14,12 @@
   <http:inbound-channel-adapter id='restInputAdapter'
                                 channel='receiveChannel'
                                 path='/person'
-                                request-payload-type="java.util.Map"
+                                request-payload-type="org.example.domain.Person"
                                 supported-methods='POST'>
   </http:inbound-channel-adapter>
 
   <jdbc:outbound-channel-adapter id='jdbcOutputAdapter'
                                  channel='receiveChannel'
                                  data-source='dataSource'
-                                 query='INSERT INTO "person" ("first_name", "last_name", "email_address") VALUES (:payload[firstName], :payload[lastName], :payload[email])'/>
+                                 query='INSERT INTO "person" ("first_name", "last_name", "email_address") VALUES (:payload.firstName, :payload.lastName, :payload.emailAddress)'/>
 </beans>
