@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-  <bean class="org.example.integration.MuleApplicationContext">
-    <constructor-arg>
-      <list>
-        <value type="java.lang.String">muleContext.xml</value>
-      </list>
-    </constructor-arg>
-  </bean>
 
-  <context:annotation-config/>
-  <context:component-scan base-package="org.example.integration"/>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:http="http://www.springframework.org/schema/integration/http"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:jdbc="http://www.springframework.org/schema/integration/jdbc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http.xsd
+            http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+            http://www.springframework.org/schema/integration/jdbc http://www.springframework.org/schema/integration/jdbc/spring-integration-jdbc.xsd">
+  <int:channel id="receiveChannel"/>
+
+  <http:inbound-channel-adapter id='restInputAdapter'
+                                channel='receiveChannel'
+                                path='/person'
+                                request-payload-type="java.util.Map"
+                                supported-methods='POST'>
+  </http:inbound-channel-adapter>
+
+  <jdbc:outbound-channel-adapter id='jdbcOutputAdapter'
+                                 channel='receiveChannel'
+                                 data-source='dataSource'
+                                 query='INSERT INTO "person" ("first_name", "last_name", "email_address") VALUES (:payload[firstName], :payload[lastName], :payload[email])'/>
 </beans>
