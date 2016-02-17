@@ -13,7 +13,7 @@
     <property name="autoCommit" value="true"/>
     <property name="connectionTimeout" value="3000"/>
     <property name="driverClassName" value="org.h2.Driver"/>
-    <property name="jdbcUrl" value="jdbc:h2:mem:spring-integration-jade"/>
+    <property name="jdbcUrl" value="jdbc:h2:mem:spring-eai"/>
     <property name="password" value=""/>
     <property name="username" value="sa"/>
     <property name="maximumPoolSize" value="5"/>
