@@ -2,11 +2,33 @@ extends ../layout/default
 
 block page_body
   .jumbotron
-    h1 Spring Integration
+    h1 Spring EAI
     p
-      a(href="http://projects.spring.io/spring-integration/") Spring Integration
-      |  is a Java-based integration framework that provides various mechanisms
-      |  for integrating disparate software systems.
+      |  This sample application demonstrates integrating an Spring MVC application with
+      |  external systems.  This is a common requirement where an existing application
+      |  either needs to accept data from or needs to provide data to one or more external
+      |  systems.
+    p
+      |  The table below shows a list of users known to this application.  This list is
+      |  populated from a relational database table.  Records can be added to the database
+      |  table by making HTTP <code>POST</code> calls to the application at one of the
+      |  following REST endpoints provided by the application:
+    ul
+      li
+        code
+          /spring/person
+      li
+        code
+          /camel/person
+    p
+      |  Data can be submitted in either <code>JSON</code> or <code>XML</code> format in the
+      |  request body.  For example, a request containing JSON data could look like
+    code
+      { "firstName":"John", "lastName":"Smith", "emailAdress":"john.smith@example.com" }
+    p
+      |  Similarly, XML data could look like
+    code
+      &lt;person&gt;&lt;firstName&gt;John&lt;/firstName&gt;&lt;lastName&gt;Smith&lt;/lastName&gt;&lt;emailAddress&gt;john.smith@example.com&lt;/emailAddress&gt;&lt;/person&gt;
   .panel.panel-primary
     .panel-heading Users
     table.table.table-bordered.table-condensed.table-hover.table-striped
@@ -21,3 +43,7 @@ block page_body
             td #{person.firstName}
             td #{person.lastName}
             td #{person.emailAddress}
+    .panel-footer
+      a(href="https://github.com/manish-in-java/spring-eai")
+        i.fa.fa-github
+        |  Source code
