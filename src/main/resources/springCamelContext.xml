@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+  <bean id="restletComponent" class="org.restlet.Component"/>
+
+  <bean id="restletComponentService" class="org.apache.camel.component.restlet.RestletComponent">
+    <constructor-arg ref="restletComponent"/>
+  </bean>
+
+  <camelContext xmlns="http://camel.apache.org/schema/spring">
+    <restConfiguration bindingMode="auto" component="restlet"/>
+
+    <rest>
+      <post outType="org.example.domain.Person" type="org.example.domain.Person" uri="/person">
+        <to uri="direct:persons"/>
+      </post>
+    </rest>
+
+    <route>
+      <from uri="direct:persons"/>
+      <setBody>
+        <simple>INSERT INTO "person" ("first_name", "last_name", "email_address") VALUES ('${body.firstName}', '${body.lastName}', '${body.emailAddress}')
+        </simple>
+      </setBody>
+      <to uri="jdbc:dataSource"/>
+    </route>
+  </camelContext>
+</beans>

@@ -13,7 +13,7 @@
 
   <http:inbound-channel-adapter id='restInputAdapter'
                                 channel='receiveChannel'
-                                path='/person'
+                                path='/spring/person'
                                 request-payload-type="org.example.domain.Person"
                                 supported-methods='POST'>
   </http:inbound-channel-adapter>

@@ -5,11 +5,12 @@
          version="2.5"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <display-name>spring-mule-jade</display-name>
+  <display-name>spring-integration-jade</display-name>
 
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>
+      classpath*:springCamelContext.xml
       classpath*:springDataContext.xml
       classpath*:springIntegrationContext.xml
     </param-value>
@@ -29,11 +30,24 @@
       <param-name>webAllowOthers</param-name>
       <param-value></param-value>
     </init-param>
-    <load-on-startup>2</load-on-startup>
+    <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
     <servlet-name>h2-console</servlet-name>
     <url-pattern>/database/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>restlet-spring-server</servlet-name>
+    <servlet-class>org.restlet.ext.spring.SpringServerServlet</servlet-class>
+    <init-param>
+      <param-name>org.restlet.component</param-name>
+      <param-value>restletComponent</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>restlet-spring-server</servlet-name>
+    <url-pattern>/camel/*</url-pattern>
   </servlet-mapping>
 
   <servlet>
